@@ -58,7 +58,7 @@ defmodule Mix.Tasks.JetCli.Init.CiTest do
 
   test ".tool-versions is required" do
     assert_raise Mix.Error, ~r/`.tool-versions` file dose not exist/, fn ->
-      Ci.run([])
+      Ci.run(["test"])
     end
   end
 end
