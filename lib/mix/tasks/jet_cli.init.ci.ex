@@ -37,6 +37,8 @@ defmodule Mix.Tasks.JetCli.Init.Ci do
     ensure_ci_directory!(dir)
     versions = check_tool_versions!(dir)
 
+    inject_deps!(dir)
+
     copy_template(
       source_file("workflows/prepare-ci/action.yml"),
       target_file(".github/workflows/prepare-ci/action.yml", dir),
@@ -103,6 +105,24 @@ defmodule Mix.Tasks.JetCli.Init.Ci do
     @ci_directory
     |> Path.expand(base_dir)
     |> create_directory()
+  end
+
+  @deps [
+    {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
+    {:dialyxir, "~> 1.0", only: [:dev], runtime: false}
+  ]
+
+  defp inject_deps!(dir) do
+    alias JetCli.Injector.Deps
+
+    mix_file = target_file("mix.exs", dir)
+
+    content =
+      mix_file
+      |> File.read!()
+      |> Deps.inject(@deps)
+
+    File.write!(mix_file, content)
   end
 
   defp source_file(file) do
