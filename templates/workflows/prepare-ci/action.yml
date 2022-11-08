@@ -24,5 +24,5 @@ runs:
         restore-keys: |
           ${{ runner.os }}-mix-${{ hashFiles('.tool-versions') }}-
 
-    - run: echo "::set-output name=cache-hit::${{ steps.cache.outputs.cache-hit }}"
+    - run: echo echo "cache-hit=${{ steps.cache.outputs.cache-hit }}" >> $GITHUB_OUTPUT
       shell: bash
