@@ -1,4 +1,4 @@
-## mix jet_cli.*
+## `mix jet_cli.*`
 
 Provides `jet_cli` installer as an archive.
 
@@ -14,3 +14,7 @@ ensure any previous archive versions are removed:
 Then run:
 
     $ MIX_ENV=prod mix do archive.build, archive.install
+
+### `mix jet_cli.init.ci`
+
+Setup GitHub Actions for the Elixir project.
