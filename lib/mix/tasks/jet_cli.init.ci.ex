@@ -53,20 +53,25 @@ defmodule Mix.Tasks.JetCli.Init.Ci do
     )
   end
 
+  @mix_file "mix.exs"
+  @tool_versions_file ".tool-versions"
+
   defp check_project_directory!(dir) do
     unless File.dir?(dir) do
       Mix.raise("The PATH dose not exist, or it is not a directory")
     end
-  end
 
-  @tool_versions_file ".tool-versions"
+    unless File.regular?(Path.expand(@mix_file, dir)) do
+      Mix.raise("`#{@mix_file}` file dose not exist under `#{dir}`")
+    end
+
+    unless File.regular?(Path.expand(@tool_versions_file, dir)) do
+      Mix.raise("`#{@tool_versions_file}` file dose not exist under `#{dir}`")
+    end
+  end
 
   defp check_tool_versions!(base_dir) do
     file = Path.expand(@tool_versions_file, base_dir)
-
-    unless File.exists?(file) do
-      Mix.raise("`#{@tool_versions_file}` file dose not exist under `#{base_dir}`")
-    end
 
     case File.read(file) do
       {:ok, content} ->

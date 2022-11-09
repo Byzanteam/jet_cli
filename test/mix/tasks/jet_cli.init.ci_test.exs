@@ -4,7 +4,9 @@ defmodule Mix.Tasks.JetCli.Init.CiTest do
   import MixHelper
   alias Mix.Tasks.JetCli.Init.Ci
 
-  @tag :tmp_dir
+  @moduletag :tmp_dir
+  setup :setup_project
+
   test "generates workflow files", %{tmp_dir: tmp_dir} do
     File.write!(
       Path.expand(".tool-versions", tmp_dir),
@@ -25,7 +27,6 @@ defmodule Mix.Tasks.JetCli.Init.CiTest do
     end)
   end
 
-  @tag :tmp_dir
   test "generates workflow files, and setup the database", %{tmp_dir: tmp_dir} do
     File.write!(
       Path.expand(".tool-versions", tmp_dir),
@@ -56,9 +57,62 @@ defmodule Mix.Tasks.JetCli.Init.CiTest do
     end
   end
 
-  test ".tool-versions is required" do
-    assert_raise Mix.Error, ~r/`.tool-versions` file dose not exist/, fn ->
-      Ci.run(["test"])
+  test "mix.exs is required", %{tmp_dir: tmp_dir} do
+    File.rm!(Path.expand("mix.exs", tmp_dir))
+
+    assert_raise Mix.Error, ~r/`mix.exs` file dose not exist/, fn ->
+      Ci.run([tmp_dir])
     end
+  end
+
+  test ".tool-versions is required", %{tmp_dir: tmp_dir} do
+    File.rm!(Path.expand(".tool-versions", tmp_dir))
+
+    assert_raise Mix.Error, ~r/`.tool-versions` file dose not exist/, fn ->
+      Ci.run([tmp_dir])
+    end
+  end
+
+  defp setup_project(%{tmp_dir: tmp_dir}) do
+    File.write!(
+      Path.expand(".tool-versions", tmp_dir),
+      """
+      erlang 25.0
+      elixir 1.14.0
+      """
+    )
+
+    File.write!(
+      Path.expand("mix.exs", tmp_dir),
+      """
+        defmodule JetCliTest.MixProject do
+          use Mix.Project
+
+          def project do
+            [
+              app: :jet_cli_test,
+              version: "0.1.0",
+              elixir: "~> 1.14",
+              start_permanent: Mix.env() == :prod,
+              elixirc_paths: elixirc_paths(Mix.env()),
+              deps: deps()
+            ]
+          end
+
+          def application do
+            [
+              extra_applications: [:logger]
+            ]
+          end
+
+          defp deps do
+            []
+          end
+
+          defp elixirc_paths(:test), do: ["lib", "test/support"]
+          defp elixirc_paths(_), do: ["lib"]
+        end
+      """
+    )
   end
 end
