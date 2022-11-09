@@ -9,7 +9,7 @@ defmodule JetCli.MixProject do
   def project do
     [
       app: :jet_cli,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.14",
       description: "The CLI for Jet Team.",
       source_url: "https://github.com/Byzanteam/jet_cli",
