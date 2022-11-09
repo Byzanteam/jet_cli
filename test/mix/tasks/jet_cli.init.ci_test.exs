@@ -1,3 +1,5 @@
+Mix.shell(Mix.Shell.Process)
+
 defmodule Mix.Tasks.JetCli.Init.CiTest do
   use ExUnit.Case, async: true
 
@@ -5,6 +7,11 @@ defmodule Mix.Tasks.JetCli.Init.CiTest do
   alias Mix.Tasks.JetCli.Init.Ci
 
   @moduletag :tmp_dir
+
+  setup do
+    decline_prompt()
+  end
+
   setup :setup_project
 
   test "generates workflow files", %{tmp_dir: tmp_dir} do
@@ -71,6 +78,12 @@ defmodule Mix.Tasks.JetCli.Init.CiTest do
     assert_raise Mix.Error, ~r/`.tool-versions` file dose not exist/, fn ->
       Ci.run([tmp_dir])
     end
+  end
+
+  defp decline_prompt do
+    send(self(), {:mix_shell_input, :yes?, false})
+
+    :ok
   end
 
   defp setup_project(%{tmp_dir: tmp_dir}) do
