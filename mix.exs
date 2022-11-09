@@ -9,9 +9,11 @@ defmodule JetCli.MixProject do
       description: "The CLI for Jet Team.",
       source_url: "https://github.com/Byzanteam/jet_cli",
       package: [
-        name: "Jet CLI",
+        name: "jet_cli",
         licenses: ["MIT"],
-        links: %{}
+        links: %{
+          "GitHub" => "https://github.com/Byzanteam/jet_cli"
+        }
       ],
       start_permanent: Mix.env() == :prod,
       elixirc_paths: elixirc_paths(Mix.env()),
