@@ -1,4 +1,6 @@
 defmodule MixHelper do
+  @moduledoc false
+
   import ExUnit.Assertions
 
   def in_repo(dir, function) do
