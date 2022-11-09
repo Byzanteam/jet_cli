@@ -33,6 +33,8 @@ defmodule Mix.Tasks.JetCli.Init.Ci do
           path
       end
 
+    Mix.shell().info("Setting up ci")
+
     check_project_directory!(dir)
     ensure_ci_directory!(dir)
     versions = check_tool_versions!(dir)
