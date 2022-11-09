@@ -6,6 +6,13 @@ defmodule JetCli.MixProject do
       app: :jet_cli,
       version: "0.1.0",
       elixir: "~> 1.14",
+      description: "The CLI for Jet Team.",
+      source_url: "https://github.com/Byzanteam/jet_cli",
+      package: [
+        name: "Jet CLI",
+        licenses: ["MIT"],
+        links: %{}
+      ],
       start_permanent: Mix.env() == :prod,
       elixirc_paths: elixirc_paths(Mix.env()),
       deps: deps(),
@@ -22,7 +29,8 @@ defmodule JetCli.MixProject do
   defp deps do
     [
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 1.0", only: [:dev], runtime: false}
+      {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
+      {:ex_doc, "~> 0.27", only: :dev, runtime: false}
     ]
   end
 
