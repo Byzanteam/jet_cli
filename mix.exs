@@ -1,3 +1,8 @@
+for path <- :code.get_path(),
+    Regex.match?(~r/jet_cli\-\d+\.\d+\.\d.*\/ebin$/, List.to_string(path)) do
+  Code.delete_path(path)
+end
+
 defmodule JetCli.MixProject do
   use Mix.Project
 
@@ -11,6 +16,7 @@ defmodule JetCli.MixProject do
       package: [
         name: "jet_cli",
         licenses: ["MIT"],
+        files: ~w(lib templates mix.exs mix.lock .tool-versions README.md),
         links: %{
           "GitHub" => "https://github.com/Byzanteam/jet_cli"
         }
