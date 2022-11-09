@@ -109,7 +109,7 @@ defmodule Mix.Tasks.JetCli.Init.Ci do
   defp ensure_ci_directory!(base_dir) do
     @ci_directory
     |> Path.expand(base_dir)
-    |> create_directory()
+    |> create_directory(quiet: true)
   end
 
   @deps [
