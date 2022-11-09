@@ -25,7 +25,7 @@ defmodule JetCli.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       deps: deps(),
       dialyzer: [
-        plt_apps: [:mix]
+        plt_apps: [:mix, :eex]
       ]
     ]
   end

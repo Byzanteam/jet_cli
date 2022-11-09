@@ -2,6 +2,7 @@ defmodule Mix.Tasks.JetCli.Init.Ci do
   use Mix.Task
 
   import Mix.Generator
+  import JetCli.Generator
 
   @shortdoc "Init CI (GitHub Actions) for the Elixir project"
 
@@ -14,6 +15,11 @@ defmodule Mix.Tasks.JetCli.Init.Ci do
 
     * `--enable-database` - generate the database service
   """
+
+  templates([
+    "workflows/prepare-ci/action.yml",
+    "workflows/elixir.yml"
+  ])
 
   @switches [
     enable_database: :boolean
@@ -41,17 +47,25 @@ defmodule Mix.Tasks.JetCli.Init.Ci do
 
     inject_deps!(dir)
 
-    copy_template(
-      source_file("workflows/prepare-ci/action.yml"),
+    create_file(
       target_file(".github/workflows/prepare-ci/action.yml", dir),
-      elixir_version: Keyword.fetch!(versions, :elixir),
-      erlang_version: Keyword.fetch!(versions, :erlang)
+      EEx.eval_string(
+        template("workflows/prepare-ci/action.yml"),
+        assigns: [
+          elixir_version: Keyword.fetch!(versions, :elixir),
+          erlang_version: Keyword.fetch!(versions, :erlang)
+        ]
+      )
     )
 
-    copy_template(
-      source_file("workflows/elixir.yml"),
+    create_file(
       target_file(".github/workflows/elixir.yml", dir),
-      enable_database: Keyword.get(opts, :enable_database, false)
+      EEx.eval_string(
+        template("workflows/elixir.yml"),
+        assigns: [
+          enable_database: Keyword.get(opts, :enable_database, false)
+        ]
+      )
     )
   end
 
@@ -134,12 +148,6 @@ defmodule Mix.Tasks.JetCli.Init.Ci do
     if Mix.shell().yes?("Fetch and install dependencies?") do
       Mix.shell().cmd("mix deps.get", cd: dir)
     end
-  end
-
-  defp source_file(file) do
-    root = Path.expand("../../../templates", __DIR__)
-
-    Path.expand(file, root)
   end
 
   defp target_file(file, dir) do
