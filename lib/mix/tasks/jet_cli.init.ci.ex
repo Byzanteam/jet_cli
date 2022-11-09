@@ -128,6 +128,10 @@ defmodule Mix.Tasks.JetCli.Init.Ci do
       |> Deps.inject(@deps)
 
     File.write!(mix_file, content)
+
+    if Mix.shell().yes?("Fetch and install dependencies?") do
+      Mix.shell().cmd("mix deps.get", cd: dir)
+    end
   end
 
   defp source_file(file) do
