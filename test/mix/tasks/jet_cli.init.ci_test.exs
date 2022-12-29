@@ -26,8 +26,6 @@ defmodule Mix.Tasks.JetCli.Init.CiTest do
     Ci.run([tmp_dir])
 
     in_repo(tmp_dir, fn ->
-      assert_file(".github/workflows/prepare-ci/action.yml", ["25.0", "1.14.0"])
-
       assert_file(".github/workflows/elixir.yml", fn file ->
         refute file =~ "postgres"
       end)
@@ -46,8 +44,6 @@ defmodule Mix.Tasks.JetCli.Init.CiTest do
     Ci.run([tmp_dir, "--enable-database"])
 
     in_repo(tmp_dir, fn ->
-      assert_file(".github/workflows/prepare-ci/action.yml", ["25.0", "1.14.0"])
-
       assert_file(".github/workflows/elixir.yml", fn file ->
         assert file =~ "postgres"
       end)

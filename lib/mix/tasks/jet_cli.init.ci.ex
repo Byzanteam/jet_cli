@@ -17,7 +17,6 @@ defmodule Mix.Tasks.JetCli.Init.Ci do
   """
 
   templates([
-    "workflows/prepare-ci/action.yml",
     "workflows/elixir.yml"
   ])
 
@@ -48,21 +47,12 @@ defmodule Mix.Tasks.JetCli.Init.Ci do
     inject_deps!(dir)
 
     create_file(
-      target_file(".github/workflows/prepare-ci/action.yml", dir),
-      EEx.eval_string(
-        template("workflows/prepare-ci/action.yml"),
-        assigns: [
-          elixir_version: Keyword.fetch!(versions, :elixir),
-          erlang_version: Keyword.fetch!(versions, :erlang)
-        ]
-      )
-    )
-
-    create_file(
       target_file(".github/workflows/elixir.yml", dir),
       EEx.eval_string(
         template("workflows/elixir.yml"),
         assigns: [
+          elixir_version: Keyword.fetch!(versions, :elixir),
+          erlang_version: Keyword.fetch!(versions, :erlang),
           enable_database: Keyword.get(opts, :enable_database, false)
         ]
       )
