@@ -17,7 +17,8 @@ defmodule Mix.Tasks.JetCli.Init.Ci do
   """
 
   templates([
-    "workflows/elixir.yml"
+    "workflows/elixir.yml",
+    "credo/config.exs"
   ])
 
   @switches [
@@ -56,6 +57,11 @@ defmodule Mix.Tasks.JetCli.Init.Ci do
           enable_database: Keyword.get(opts, :enable_database, false)
         ]
       )
+    )
+
+    create_file(
+      target_file(".credo.exs", dir),
+      template("credo/config.exs")
     )
   end
 

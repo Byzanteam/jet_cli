@@ -50,6 +50,14 @@ defmodule Mix.Tasks.JetCli.Init.CiTest do
     end)
   end
 
+  test "generates the .credo.exs file", %{tmp_dir: tmp_dir} do
+    Ci.run([tmp_dir])
+
+    in_repo(tmp_dir, fn ->
+      assert_file(".credo.exs")
+    end)
+  end
+
   test "PATH is required", context do
     assert_raise Mix.Error, ~r/The PATH dose not exist, or it is not a directory/, fn ->
       Ci.run(["not-existing"])
