@@ -68,6 +68,8 @@ defmodule Mix.Tasks.JetCli.Init.Ci do
         ]
       )
     )
+
+    format_file!(target_file(".credo.exs", dir))
   end
 
   @mix_file "mix.exs"
@@ -153,5 +155,9 @@ defmodule Mix.Tasks.JetCli.Init.Ci do
 
   defp target_file(file, dir) do
     Path.expand(file, dir)
+  end
+
+  defp format_file!(path) do
+    Mix.shell().cmd("mix format #{path}")
   end
 end
