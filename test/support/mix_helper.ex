@@ -3,6 +3,7 @@ defmodule MixHelper do
 
   import ExUnit.Assertions
 
+  @spec in_repo(Path.t(), (() -> returning)) :: returning when returning: term()
   def in_repo(dir, function) do
     prev_cd = File.cwd!()
 
@@ -14,10 +15,13 @@ defmodule MixHelper do
     end
   end
 
+  @spec assert_file(Path.t()) :: term()
   def assert_file(file) do
     assert File.regular?(file), "Expected #{file} to exist, but does not"
   end
 
+  @spec assert_file(Path.t(), [match] | match | (binary() -> term())) :: term()
+        when match: String.t() | Regex.t()
   def assert_file(file, match) do
     cond do
       is_list(match) ->
@@ -28,7 +32,7 @@ defmodule MixHelper do
 
       is_function(match, 1) ->
         assert_file(file)
-        match.(File.read!(file))
+        assert match.(File.read!(file))
 
       true ->
         raise inspect({file, match})

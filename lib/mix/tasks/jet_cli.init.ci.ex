@@ -25,7 +25,7 @@ defmodule Mix.Tasks.JetCli.Init.Ci do
     enable_database: :boolean
   ]
 
-  @impl true
+  @impl Mix.Task
   def run(args) do
     {opts, argv} = OptionParser.parse!(args, strict: @switches)
 
