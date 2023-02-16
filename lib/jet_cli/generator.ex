@@ -1,4 +1,4 @@
-defmodule JetCli.Generator do
+defmodule JetCLI.Generator do
   @moduledoc false
 
   defmacro templates(files) do

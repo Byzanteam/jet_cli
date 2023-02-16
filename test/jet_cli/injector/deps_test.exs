@@ -1,7 +1,7 @@
-defmodule JetCli.Injector.DepsTest do
+defmodule JetCLI.Injector.DepsTest do
   use ExUnit.Case, async: true
 
-  alias JetCli.Injector.Deps
+  alias JetCLI.Injector.Deps
 
   test "injects deps" do
     content = """
