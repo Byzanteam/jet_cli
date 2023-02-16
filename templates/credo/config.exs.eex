@@ -176,6 +176,9 @@ exclude_test_files = {:files, %{included: ["test/", "apps/*/test/"]}}
           {Credo.Check.Warning.UnsafeExec, []},
           {Credo.Check.Warning.MapGetUnsafePass, []},
           {Credo.Check.Warning.MixEnv, []},
+<%= if Version.compare(@elixir_version, "1.14.0") === :lt do %>
+          {Credo.Check.Warning.LazyLogging, []},
+<% end %>
           {Credo.Check.Warning.UnsafeToAtom, []}
         ],
         disabled: [
@@ -187,7 +190,6 @@ exclude_test_files = {:files, %{included: ["test/", "apps/*/test/"]}}
           {Credo.Check.Refactor.ABCSize, []},
           {Credo.Check.Refactor.ModuleDependencies, []},
           {Credo.Check.Refactor.VariableRebinding, []},
-          {Credo.Check.Warning.LazyLogging, []},
           {Credo.Check.Warning.LeakyEnvironment, []}
 
           # {Credo.Check.Refactor.MapInto, []},

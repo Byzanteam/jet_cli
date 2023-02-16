@@ -18,7 +18,7 @@ defmodule Mix.Tasks.JetCli.Init.Ci do
 
   templates([
     "workflows/elixir.yml",
-    "credo/config.exs"
+    "credo/config.exs.eex"
   ])
 
   @switches [
@@ -61,7 +61,12 @@ defmodule Mix.Tasks.JetCli.Init.Ci do
 
     create_file(
       target_file(".credo.exs", dir),
-      template("credo/config.exs")
+      EEx.eval_string(
+        template("credo/config.exs.eex"),
+        assigns: [
+          elixir_version: Keyword.fetch!(versions, :elixir)
+        ]
+      )
     )
   end
 
