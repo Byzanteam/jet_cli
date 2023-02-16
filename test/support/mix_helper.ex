@@ -32,7 +32,7 @@ defmodule MixHelper do
 
       is_function(match, 1) ->
         assert_file(file)
-        assert match.(File.read!(file))
+        match.(File.read!(file))
 
       true ->
         raise inspect({file, match})

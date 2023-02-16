@@ -50,11 +50,31 @@ defmodule Mix.Tasks.JetCli.Init.CiTest do
     end)
   end
 
-  test "generates the .credo.exs file", %{tmp_dir: tmp_dir} do
+  test "generates the .credo.exs file and skip incompatible rules", %{tmp_dir: tmp_dir} do
     Ci.run([tmp_dir])
 
     in_repo(tmp_dir, fn ->
-      assert_file(".credo.exs")
+      assert_file(".credo.exs", fn file ->
+        refute file =~ "LazyLogging"
+      end)
+    end)
+  end
+
+  test "generates the .credo.exs file", %{tmp_dir: tmp_dir} do
+    File.write!(
+      Path.expand(".tool-versions", tmp_dir),
+      """
+      erlang 25.0
+      elixir 1.13.0
+      """
+    )
+
+    Ci.run([tmp_dir])
+
+    in_repo(tmp_dir, fn ->
+      assert_file(".credo.exs", fn file ->
+        assert file =~ "LazyLogging"
+      end)
     end)
   end
 
