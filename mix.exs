@@ -3,7 +3,7 @@ for path <- :code.get_path(),
   Code.delete_path(path)
 end
 
-defmodule JetCLI.MixProject do
+defmodule JetCli.MixProject do
   use Mix.Project
 
   def project do

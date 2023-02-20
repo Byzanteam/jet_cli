@@ -1,4 +1,4 @@
-defmodule JetCLI.Injector.Deps do
+defmodule JetCli.Injector.Deps do
   @moduledoc """
   Inject deps into `mix.exs` file.
   """

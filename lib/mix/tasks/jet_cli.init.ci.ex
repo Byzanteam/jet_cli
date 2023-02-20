@@ -1,8 +1,8 @@
-defmodule Mix.Tasks.JetCLI.Init.CI do
+defmodule Mix.Tasks.JetCli.Init.Ci do
   use Mix.Task
 
   import Mix.Generator
-  import JetCLI.Generator
+  import JetCli.Generator
 
   @shortdoc "Init CI (GitHub Actions) for the Elixir project"
 
@@ -137,7 +137,7 @@ defmodule Mix.Tasks.JetCLI.Init.CI do
   ]
 
   defp inject_deps!(dir) do
-    alias JetCLI.Injector.Deps
+    alias JetCli.Injector.Deps
 
     mix_file = target_file("mix.exs", dir)
 
