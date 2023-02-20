@@ -1,10 +1,10 @@
 Mix.shell(Mix.Shell.Process)
 
-defmodule Mix.Tasks.JetCLI.Init.CITest do
+defmodule Mix.Tasks.JetCli.Init.CiTest do
   use ExUnit.Case, async: true
 
   import MixHelper
-  alias Mix.Tasks.JetCLI.Init.CI
+  alias Mix.Tasks.JetCli.Init.Ci
 
   @moduletag :tmp_dir
 
@@ -23,7 +23,7 @@ defmodule Mix.Tasks.JetCLI.Init.CITest do
       """
     )
 
-    CI.run([tmp_dir])
+    Ci.run([tmp_dir])
 
     in_repo(tmp_dir, fn ->
       assert_file(".github/workflows/elixir.yml", fn file ->
@@ -41,7 +41,7 @@ defmodule Mix.Tasks.JetCLI.Init.CITest do
       """
     )
 
-    CI.run([tmp_dir, "--enable-database"])
+    Ci.run([tmp_dir, "--enable-database"])
 
     in_repo(tmp_dir, fn ->
       assert_file(".github/workflows/elixir.yml", fn file ->
@@ -51,7 +51,7 @@ defmodule Mix.Tasks.JetCLI.Init.CITest do
   end
 
   test "generates the .credo.exs file and skip incompatible rules", %{tmp_dir: tmp_dir} do
-    CI.run([tmp_dir])
+    Ci.run([tmp_dir])
 
     in_repo(tmp_dir, fn ->
       assert_file(".credo.exs", fn file ->
@@ -69,7 +69,7 @@ defmodule Mix.Tasks.JetCLI.Init.CITest do
       """
     )
 
-    CI.run([tmp_dir])
+    Ci.run([tmp_dir])
 
     in_repo(tmp_dir, fn ->
       assert_file(".credo.exs", fn file ->
@@ -80,11 +80,11 @@ defmodule Mix.Tasks.JetCLI.Init.CITest do
 
   test "PATH is required", context do
     assert_raise Mix.Error, ~r/The PATH dose not exist, or it is not a directory/, fn ->
-      CI.run(["not-existing"])
+      Ci.run(["not-existing"])
     end
 
     assert_raise Mix.Error, ~r/The PATH dose not exist, or it is not a directory/, fn ->
-      CI.run([context.file])
+      Ci.run([context.file])
     end
   end
 
@@ -92,7 +92,7 @@ defmodule Mix.Tasks.JetCLI.Init.CITest do
     File.rm!(Path.expand("mix.exs", tmp_dir))
 
     assert_raise Mix.Error, ~r/`mix.exs` file dose not exist/, fn ->
-      CI.run([tmp_dir])
+      Ci.run([tmp_dir])
     end
   end
 
@@ -100,7 +100,7 @@ defmodule Mix.Tasks.JetCLI.Init.CITest do
     File.rm!(Path.expand(".tool-versions", tmp_dir))
 
     assert_raise Mix.Error, ~r/`.tool-versions` file dose not exist/, fn ->
-      CI.run([tmp_dir])
+      Ci.run([tmp_dir])
     end
   end
 
@@ -122,7 +122,7 @@ defmodule Mix.Tasks.JetCLI.Init.CITest do
     File.write!(
       Path.expand("mix.exs", tmp_dir),
       """
-        defmodule JetCLITest.MixProject do
+        defmodule JetCliTest.MixProject do
           use Mix.Project
 
           def project do
