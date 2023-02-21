@@ -41,11 +41,11 @@ defmodule Mix.Tasks.JetCli.Init.CiTest do
       """
     )
 
-    Ci.run([tmp_dir, "--enable-database"])
+    Ci.run([tmp_dir, "--database", "hello"])
 
     in_repo(tmp_dir, fn ->
       assert_file(".github/workflows/elixir.yml", fn file ->
-        assert file =~ "postgres"
+        assert file =~ "POSTGRES_DB: hello"
       end)
     end)
   end
