@@ -22,7 +22,7 @@ defmodule Mix.Tasks.JetCli.Init.Ci do
   ])
 
   @switches [
-    enable_database: :boolean
+    database: :string
   ]
 
   @impl Mix.Task
@@ -54,7 +54,7 @@ defmodule Mix.Tasks.JetCli.Init.Ci do
         assigns: [
           elixir_version: Keyword.fetch!(versions, :elixir),
           erlang_version: Keyword.fetch!(versions, :erlang),
-          enable_database: Keyword.get(opts, :enable_database, false)
+          database: Keyword.get(opts, :database)
         ]
       )
     )
