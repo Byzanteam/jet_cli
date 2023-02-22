@@ -24,3 +24,7 @@ jet_cli-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+#  Ignore Dialyzer cache files
+/priv/plts/*.plt
+/priv/plts/*.plt.hash
