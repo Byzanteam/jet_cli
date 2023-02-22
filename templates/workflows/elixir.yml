@@ -107,6 +107,10 @@ jobs:
           key: ${{ runner.os }}-plt-${{ hashFiles('.tool-versions') }}-${{ hashFiles('**/mix.lock') }}
           restore-keys: |
             ${{ runner.os }}-plt-${{ hashFiles('.tool-versions') }}-
-
+      
+      - name: Create PLTs
+        if: steps.plt_cache.outputs.cache-hit != 'true'
+        run: mix dialyzer --plt
+      
       - name: Dialyzer
         run: mix dialyzer --format github
