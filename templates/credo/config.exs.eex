@@ -5,7 +5,7 @@
 # issue on GitHub: https://github.com/rrrene/credo/issues
 #
 
-exclude_test_files = {:files, %{included: ["test/", "apps/*/test/"]}}
+exclude_test_files = {:files, %{excluded: ["test/", "apps/*/test/"]}}
 
 %{
   #
