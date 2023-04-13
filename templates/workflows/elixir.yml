@@ -26,7 +26,7 @@ jobs:
           elixir-version: ${{ env.ELIXIR_VERSION }}
 
       - name: Install Dependencies
-        run: mix do deps.get, deps.clean --unused
+        run: mix do deps.get, deps.unlock --check-unused, deps.clean --unused
 
   build:
     runs-on: ubuntu-latest
