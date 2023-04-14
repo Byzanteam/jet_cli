@@ -179,7 +179,12 @@ exclude_test_files = {:files, %{excluded: ["test/", "apps/*/test/"]}}
 <%= if Version.compare(@elixir_version, "1.14.0") === :lt do %>
           {Credo.Check.Warning.LazyLogging, []},
 <% end %>
-          {Credo.Check.Warning.UnsafeToAtom, []}
+          {Credo.Check.Warning.UnsafeToAtom, []},
+
+          #
+          ## Team checks
+          #
+          {JetCredo.Checks.ExplicitAnyType, []}
         ],
         disabled: [
           {Credo.Check.Readability.AliasAs, []},
