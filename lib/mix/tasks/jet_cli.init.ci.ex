@@ -133,6 +133,7 @@ defmodule Mix.Tasks.JetCli.Init.Ci do
 
   @deps [
     {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
+    {:jet_credo, github: "Byzanteam/jet_credo", only: [:dev, :test], runtime: false},
     {:dialyxir, "~> 1.0", only: [:dev], runtime: false}
   ]
 
