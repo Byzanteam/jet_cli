@@ -3,6 +3,7 @@ defmodule MixHelper do
 
   import ExUnit.Assertions
 
+  # credo:disable-for-next-line JetCredo.Checks.ExplicitAnyType
   @spec in_repo(Path.t(), (() -> returning)) :: returning when returning: term()
   def in_repo(dir, function) do
     prev_cd = File.cwd!()
@@ -15,11 +16,13 @@ defmodule MixHelper do
     end
   end
 
+  # credo:disable-for-next-line JetCredo.Checks.ExplicitAnyType
   @spec assert_file(Path.t()) :: term()
   def assert_file(file) do
     assert File.regular?(file), "Expected #{file} to exist, but does not"
   end
 
+  # credo:disable-for-next-line JetCredo.Checks.ExplicitAnyType
   @spec assert_file(Path.t(), [match] | match | (binary() -> term())) :: term()
         when match: String.t() | Regex.t()
   def assert_file(file, match) do

@@ -176,7 +176,12 @@ exclude_test_files = {:files, %{included: ["test/", "apps/*/test/"]}}
           {Credo.Check.Warning.UnsafeExec, []},
           {Credo.Check.Warning.MapGetUnsafePass, []},
           {Credo.Check.Warning.MixEnv, []},
-          {Credo.Check.Warning.UnsafeToAtom, []}
+          {Credo.Check.Warning.UnsafeToAtom, []},
+
+          #
+          ## Team checks
+          #
+          {JetCredo.Checks.ExplicitAnyType, []}
         ],
         disabled: [
           {Credo.Check.Readability.AliasAs, []},
