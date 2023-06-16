@@ -9,11 +9,11 @@ defmodule Mix.Tasks.JetCli.Init.Ci do
   @moduledoc """
   Init CI (GitHub Actions) for the Elixir project.
 
-      mix jet_cli.init.ci [DIR] [--enable-database]
+      mix jet_cli.init.ci [DIR] [--database]
 
   ## Options
 
-    * `--enable-database` - generate the database service
+    * `--database` - give a database name for generating the database service
   """
 
   templates([
